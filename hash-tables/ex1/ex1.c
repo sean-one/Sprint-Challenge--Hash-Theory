@@ -8,10 +8,11 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   HashTable *ht = create_hash_table(16);
 
   // YOUR CODE HERE
-  if (length >= ht->capacity * 0.7){
-    hash_table_resize(ht);
-  }
-  else if (length < 2) {
+  // if (length >= ht->capacity * 0.7){
+  //   hash_table_resize(ht);
+  // }
+  // else 
+  if (length < 2) {
     return NULL;
   }
   for (int i = 0; i < length; i++) {
@@ -23,13 +24,17 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
     if (hash_check < 0) {
       hash_table_insert(ht, weights[i], i);
     } else { // if it is in the table grab it and figure index 1 & 2
-      int winner = weights[hash_check];
-      if (winner > weights[i]) {
-        Answer->index_1 = winner;
-        Answer->index_2 = weights[i];
+      int winner = hash_check;
+      // create answer struct
+      Answer *answer = malloc(sizeof(Answer));
+      if (winner > i) {
+        answer->index_1 = winner;
+        answer->index_2 = i;
+        return answer;
       }
-      Answer->index_1 = weights[i];
-      Answer->index_2 = winner;
+      answer->index_1 = i;
+      answer->index_2 = winner;
+      return answer;
     }
   }
   return NULL;
