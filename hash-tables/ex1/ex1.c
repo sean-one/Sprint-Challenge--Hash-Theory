@@ -14,9 +14,24 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   else if (length < 2) {
     return NULL;
   }
-  
-
-
+  for (int i = 0; i < length; i++) {
+    // find out what is needed to make the sum (limit)
+    int needed = limit - weights[i];
+    // check if that number is in the hash table
+    int hash_check = hash_table_retrieve(ht, needed);
+    // if the number is not in the hash table
+    if (hash_check < 0) {
+      hash_table_insert(ht, weights[i], i);
+    } else { // if it is in the table grab it and figure index 1 & 2
+      int winner = weights[hash_check];
+      if (winner > weights[i]) {
+        Answer->index_1 = winner;
+        Answer->index_2 = weights[i];
+      }
+      Answer->index_1 = weights[i];
+      Answer->index_2 = winner;
+    }
+  }
   return NULL;
 }
 
