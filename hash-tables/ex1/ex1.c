@@ -8,11 +8,10 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   HashTable *ht = create_hash_table(16);
 
   // YOUR CODE HERE
-  // if (length >= ht->capacity * 0.7){
-  //   hash_table_resize(ht);
-  // }
-  // else 
-  if (length < 2) {
+  if (length >= ht->capacity * 0.7){
+    hash_table_resize(ht);
+  }
+  else if (length < 2) {
     return NULL;
   }
   for (int i = 0; i < length; i++) {
