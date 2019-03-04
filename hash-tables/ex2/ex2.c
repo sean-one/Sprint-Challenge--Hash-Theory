@@ -29,7 +29,7 @@ char **reconstruct_trip(Ticket **tickets, int length)
       if (hash_check < 0) {
         hash_table_insert(ht, current_ticket->key, current_ticket->value);
       } else { // if it is in the ht grab it and update start
-        
+        ht->storage[hash_check]
 
       }
 
